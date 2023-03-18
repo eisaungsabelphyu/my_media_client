@@ -22,7 +22,7 @@
                                     <nav>
                                       
                                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                          <a href="" @click="categorySearch('test')">Test</a>
+                                          <!-- <a href="" @click="categorySearch('test')">Test</a> -->
                                             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#" role="tab" aria-controls="nav-home" aria-selected="true" 
                                             @click="categorySearch('')"
                                             >All</a
@@ -71,32 +71,40 @@
                         <span v-if="!tokenStatus" class="text-white d-flex justify-content-center bg-danger my-5 rounded p-5 h3 shadow">You don't have permission for that</span>
                         <span v-else>
                           <div class="row">
-                          <div class="d-flex align-items-center justify-content-center" 
+                          <!-- <div class="d-flex align-items-center justify-content-center" 
                           style="height:400px;"
                           v-if="postLists.length == 0"
                           >
-                            <h1 class="text-danger">There is no data!</h1>
-                          </div>
-                          <div class="col-lg-6 col-md-6" v-for="(post, index) in postLists" :key="index"
-                          v-else-if="postLists.length != 0">
+                            <h1 class="text-danger">There is no post!</h1>
+                          </div> -->
+                          <div class="col-lg-6 col-md-6" v-for="(post, index) in postLists.data" :key="index"
+                          >
                           
                             <div class="single-what-news mb-100" @click="newsDetails(post.id)">
                               <div class="what-img">
                                 <img
                                   v-bind:src="post.image"
                                   alt=""
+                                  style="width:400px;height:300px;"
                                 />
                               </div>
                               <div class="what-cap">
-                                <span class="color1">title</span>
+                                <span class="color1">{{post.category}}</span>
                                 <h4>
                                   <a href="details.html"
-                                    >{{post.description}}</a
+                                    class="text-wrap">{{post.title}}</a
                                   >
                                 </h4>
                               </div>
                             </div>
                           </div>
+                          <div class="d-flex justify-content-center">
+                            <Bootstrap5Pagination
+                              :data="postLists"
+                              @pagination-change-page="getAllPost"
+                          />
+                          </div>
+                        
                         </div>
                         </span>
                       </div>
@@ -113,9 +121,9 @@
             </div>
         </section>
         <!-- Whats New End -->
-
+        
         <!--Start pagination -->
-        <div class="pagination-area pb-45 text-center">
+        <!-- <div class="pagination-area pb-45 text-center">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -145,11 +153,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- End pagination  -->
     </div>
 </template>
 
-<script src="../js/homePage.js"></script>
+<script src="../js/homePage.js">
+</script>
 
 

@@ -1,12 +1,18 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
+import { Bootstrap5Pagination } from "laravel-vue-pagination";
+
     export default {
     name: "HomePage",
+    components: {
+          Bootstrap5Pagination,  
+        },
         data() {
             return {
                 postLists: {},
                 categoryLists: {},
                 searchKey: "",
+                searchedCategory: "",
                 tokenStatus: false
             };
     },
@@ -14,17 +20,19 @@ import { mapGetters } from "vuex";
         ...mapGetters(["storageToken","storageUserData"])
     },
         methods: {
-            getAllPost() {
-                axios.get("http://localhost:8000/api/post").then((response) => {
-            
-                    for (let i = 0; i < response.data.posts.length; i++){
-                        if (response.data.posts[i].image != null) {
-                            response.data.posts[i].image = "http://localhost:8000/storage/" + response.data.posts[i].image;
+            getAllPost(page = 1) {
+                axios.get(`http://localhost:8000/api/post?page=${page}`)
+                    .then((response) => {
+                        
+                    for (let i = 0; i < response.data.posts.data.length; i++){
+                        if (response.data.posts.data[i].image != null) {
+                            response.data.posts.data[i].image = "http://localhost:8000/storage/" + response.data.posts.data[i].image;
                         } else {
-                            response.data.posts[i].image = "http://localhost:8000/image/img-not-found.png";
+                            response.data.posts.data[i].image = "http://localhost:8000/image/img-not-found.png";
                         }
                     }
-                    this.postLists = response.data.posts;  
+                        this.postLists = response.data.posts;  
+                        
                     
                 })
                 .catch((error) => {
@@ -43,38 +51,37 @@ import { mapGetters } from "vuex";
                     });
             },
 
-            search() {
-                axios.post("http://localhost:8000/api/post/search", {
-                    key: this.searchKey
-                })
+            search(page = 1) {
+                axios.post(`http://localhost:8000/api/post/search?key=${this.searchKey}&page=${page}`)
                     .then((response) => {
-                    for (let i = 0; i < response.data.searchKey.length; i++){
-                        if (response.data.searchKey[i].image != null) {
-                            response.data.searchKey[i].image = "http://localhost:8000/storage/" + response.data.searchKey[i].image;
+                        
+                         for (let i = 0; i < response.data.searchKey.data.length; i++){
+                        if (response.data.searchKey.data[i].image != null) {
+                            response.data.searchKey.data[i].image = "http://localhost:8000/storage/" + response.data.searchKey.data[i].image;
                         } else {
-                            response.data.searchKey[i].image = "http://localhost:8000/image/img-not-found.png";
+                            response.data.searchKey.data[i].image = "http://localhost:8000/image/img-not-found.png";
                         }
                     }
-                    this.postLists = response.data.searchKey;
+                        this.postLists = response.data.searchKey;
                 })
                 .catch((error) => {
                     console.log(error);
                 });
             },
 
-            categorySearch(searchKey) {
-                axios.post("http://localhost:8000/api/category/search", {
-                    key: searchKey
-                })
+            categorySearch(categoryId,page = 1) {
+                axios.post(`http://localhost:8000/api/category/search?key=${categoryId}&page=${page}`)
                     .then((response) => {
-                       for (let i = 0; i < response.data.searchData.length; i++){
-                        if (response.data.searchData[i].image != null) {
-                            response.data.searchData[i].image = "http://localhost:8000/storage/" + response.data.searchData[i].image;
+                       
+                         for (let i = 0; i < response.data.searchData.data.length; i++){
+                        if (response.data.searchData.data[i].image != null) {
+                            response.data.searchData.data[i].image = "http://localhost:8000/storage/" + response.data.searchData.data[i].image;
                         } else {
-                            response.data.searchData[i].image = "http://localhost:8000/image/img-not-found.png";
+                            response.data.searchData.data[i].image = "http://localhost:8000/image/img-not-found.png";
                         }
                     }
-                    this.postLists = response.data.searchData;                       
+                        this.postLists = response.data.searchData; 
+                          
                     })
                     .catch((error) => {
                         console.log(error);

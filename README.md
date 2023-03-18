@@ -1,24 +1,17 @@
-# my_media_client
+# my_media_client (Personal Blog Project Sample)
 
-## Project setup
-```
-npm install
-```
+## User UI
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Login page
+<img src="./public/assets/screenshot/client-login.png" width="600" heigth="500">
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Home page
+<img src="./public/assets/screenshot/client-home.png" width="600" heigth="500">
 
-### Lints and fixes files
-```
-npm run lint
-```
+### Post detail page
+<img src="./public/assets/screenshot/client-detail.png" width="600" heigth="500">
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Post searching
+<img src="./public/assets/screenshot/client-search.png" width="600" heigth="500">
+
+

@@ -75,7 +75,7 @@
                             <!-- From -->
                             <div class="row">
                                 <div class="col-lg-8">  
-                                        <div class="form-group mt-3">
+                                        <div class="form-group mb-3">
                                             <button type="submit" class="button button-contactForm boxed-btn" @click="back()">Back</button>
                                         </div>   
                                 </div>
