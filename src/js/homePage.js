@@ -34,7 +34,8 @@ import { Bootstrap5Pagination } from "laravel-vue-pagination";
                             response.data.posts.data[i].image = "http://localhost:8000/image/img-not-found.png";
                         }
                     }
-                        this.postLists = response.data.posts;  
+                        this.postLists = response.data.posts; 
+                        this.searchKey = "";
                         
                     
                 })
