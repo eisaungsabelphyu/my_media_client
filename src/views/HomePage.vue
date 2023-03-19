@@ -51,7 +51,7 @@
                 <div class="col-12">
                   
                   <div class="d-flex justify-content-end mb-3">
-                    <input type="text" class="col-3 mr-5" placeholder="Search" v-model="searchKey" v-on:keyup.enter="search()" />
+                    <input type="text" class="col-3 mr-5" placeholder="Search" v-model="searchKey" v-on:keyup.enter="getAllPost()" />
                     <!-- <i 
                     class="fa-solid fa-magnifying-glass mt-1 ml-3"
                      style="font-size: 20px;"
@@ -104,6 +104,7 @@
                               @pagination-change-page="getAllPost"
                           />
                           </div>
+                         
                         
                         </div>
                         </span>
