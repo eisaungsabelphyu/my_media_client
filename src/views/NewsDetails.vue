@@ -65,11 +65,17 @@
                                         Mount and Wedge. Both of these terms refer to the tripod your telescope sits on. The mount is the actual tripod and the wedge is the device that lets you attach the telescope to the mount.
                                         Moms are like…buttons? Moms are like glue. Moms are like pizza crusts. Moms are the ones who make sure things happen—from birth to school lunch.</p>
                                 </div> -->
-                                <div class="social-share pt-30">
+                                <div class="social-share pt-30 d-flex justify-content-around">
                                     <div class="section-tittle">
                                         <i class="fa-solid fa-eye mt-1 mr-2"></i>
                                         <span>{{ viewcount }}</span>
                                     </div>
+                                    <div class="section-tittle">
+                                        <i class="fa-regular fa-heart mt-1 mr-2" @click="react()" v-if="reactStatus == 0"></i>
+                                        <i class="fa-solid fa-heart mt-1 mr-2 "  @click="react()" v-else></i>
+                                        <span>{{ totalReact }}</span>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <!-- From -->

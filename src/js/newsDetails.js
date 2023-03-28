@@ -6,7 +6,10 @@ export default {
         return {
             postId: 0,
             postList: {},
-            viewcount: 0
+            viewcount: 0,
+            reactStatus: 0,
+            totalReact: 0
+            
         }
     },
     computed : {
@@ -46,7 +49,32 @@ export default {
             logout() {
                 this.$store.dispatch("setToken", null);
                 this.login();
+        },
+        
+        react() {
+            if (this.reactStatus == 0) {
+                this.reactStatus = 1
+                this.totalReact = this.totalReact+1;
+                
+            } else {
+                this.reactStatus = 0
+                this.totalReact = this.totalReact-1; 
+                 
             }
+            let data = {
+                'user_id': this.storageUserData.id,
+                'post_id': this.$route.query.id,
+                'status': this.reactStatus,
+            };
+            axios.post('http://localhost:8000/api/post/react', data)
+                .then((response) => {
+                    console.log(response);
+                    
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
     },
 
     mounted() {
@@ -55,6 +83,7 @@ export default {
             'user_id': this.storageUserData.id,
             'post_id': this.$route.query.id
         };
+        //get viewcount data
         axios.post('http://localhost:8000/api/post/actionLogs', data)
             .then((response) => {
                 this.viewcount = response.data.post.length;
@@ -62,6 +91,17 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
+        //get react data
+        axios.post('http://localhost:8000/api/post/getReactData', data)
+                .then((response) => {
+                  
+                    this.reactStatus = response.data.reactData.like_unlike_status;
+                    this.totalReact = response.data.totalReact.length;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        
         this.postId = this.$route.query.id;
         this.loadPost(this.postId);
     }
